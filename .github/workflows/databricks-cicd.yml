@@ -26,3 +26,9 @@ jobs:
 
       - name: Deploy bundle
         run: databricks bundle deploy --target dev
+
+      - name: Summary
+        run: databricks bundle summary --target dev
+
+      - name: List Jobs
+        run: databricks jobs list
