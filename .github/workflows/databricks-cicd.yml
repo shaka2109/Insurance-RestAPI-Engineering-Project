@@ -38,3 +38,7 @@ jobs:
 
       - name: List Jobs
         run: databricks jobs list
+
+      - name: Run Databricks Jobs (optional)
+        if: github.ref == 'refs/heads/main'
+        run: databricks bundle run Insurance-RESTAPI
