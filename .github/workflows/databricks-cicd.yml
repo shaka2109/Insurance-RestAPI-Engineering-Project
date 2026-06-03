@@ -1,0 +1,40 @@
+name: Databricks CI/CD (DABs)
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+      - name: Validate bundle
+        run: databricks bundle validate
+
+      - name: Deploy DEV
+        if: github.ref == 'refs/heads/develop'
+        run: databricks bundle deploy --target dev
+
+      - name: Deploy PROD
+        if: github.ref == 'refs/heads/main'
+        run: databricks bundle deploy --target prod
+
+      - name: List Jobs
+        run: databricks jobs list

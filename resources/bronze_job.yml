@@ -36,7 +36,7 @@ resources:
 
         - task_key: payments
           notebook_task:
-            notebook_path: ../notebooks/bronze/agepaymentsnts.py
+            notebook_path: ../notebooks/bronze/payments.py
 
         - task_key: policies
           notebook_task:
