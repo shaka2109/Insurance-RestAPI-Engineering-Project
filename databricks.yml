@@ -1,0 +1,13 @@
+bundle:
+  name: Insurance-RESTAPI
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    default: true
+    workspace:
+      host: https://dbc-a1dee497-4a72.cloud.databricks.com
+    presets:
+      name_prefix: "[DEV] "

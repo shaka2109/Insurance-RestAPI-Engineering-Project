@@ -1,0 +1,35 @@
+resources:
+  jobs:
+    insurance_gold_load:
+
+      name: Insurance Gold Load
+
+      tasks:
+
+        - task_key: BusinessHealthMetrics
+          notebook_task:
+            notebook_path: ../notebooks/gold/BusinessHealthMetrics.py
+
+        - task_key: ClaimsTrends
+          notebook_task:
+            notebook_path: ../notebooks/gold/ClaimsTrends.py
+
+        - task_key: CustomerLifetimeValue
+          notebook_task:
+            notebook_path: ../notebooks/gold/CustomerLifetimeValue.py
+
+        - task_key: MonthlyBusinessMetrics
+          notebook_task:
+            notebook_path: ../notebooks/gold/MonthlyBusinessMetrics.py
+
+        - task_key: PaymentTrends
+          notebook_task:
+            notebook_path: ../notebooks/gold/PaymentTrends.py
+
+        - task_key: PolicyProfitability
+          notebook_task:
+            notebook_path: ../notebooks/gold/PolicyProfitability.py
+
+        - task_key: RegionalPerformance
+          notebook_task:
+            notebook_path: ../notebooks/gold/RegionalPerformance.py

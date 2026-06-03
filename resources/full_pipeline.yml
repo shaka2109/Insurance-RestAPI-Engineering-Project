@@ -1,0 +1,21 @@
+resources:
+  jobs:
+    insurance_full_pipeline:
+
+      name: Insurance Full Pipeline
+
+      tasks:
+
+        - task_key: bronze_load
+          run_job_task:
+            job_id: ${resources.jobs.insurance_bronze_load.id}
+
+        - task_key: silver_load
+          depends_on:
+            - task_key: bronze_load
+          run_job_task:
+            job_id: ${resources.jobs.insurance_silver_load.id}
+
+        - task_key: gold_load
+          run_job_task:
+            job_id: ${resources.jobs.insurance_gold_load.id}

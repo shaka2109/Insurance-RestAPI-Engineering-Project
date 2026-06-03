@@ -1,0 +1,43 @@
+resources:
+  jobs:
+    insurance_bronze_load:
+
+      name: Insurance Bronze Load
+
+      tasks:
+
+        - task_key: agents
+          notebook_task:
+            notebook_path: ../notebooks/bronze/agents.py
+
+        - task_key: claims
+          notebook_task:
+            notebook_path: ../notebooks/bronze/claims.py
+
+        - task_key: countries
+          notebook_task:
+            notebook_path: ../notebooks/bronze/countries.py
+
+        - task_key: customer_policies
+          notebook_task:
+            notebook_path: ../notebooks/bronze/customer_policies.py
+
+        - task_key: customers
+          notebook_task:
+            notebook_path: ../notebooks/bronze/customers.py
+
+        - task_key: payment_frequency
+          notebook_task:
+            notebook_path: ../notebooks/bronze/payment_frequency.py
+
+        - task_key: payment_transactions
+          notebook_task:
+            notebook_path: ../notebooks/bronze/payment_transactions.py
+
+        - task_key: payments
+          notebook_task:
+            notebook_path: ../notebooks/bronze/agepaymentsnts.py
+
+        - task_key: policies
+          notebook_task:
+            notebook_path: ../notebooks/bronze/policies.py
