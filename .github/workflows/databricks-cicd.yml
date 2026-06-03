@@ -10,6 +10,10 @@ jobs:
   validate-and-deploy:
     runs-on: ubuntu-latest
 
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
     steps:
       # 1. Checkout repo
       - name: Checkout repository
@@ -38,7 +42,7 @@ jobs:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
       # 5. Validate bundle (CI step)
-      - name: Validate Databricks Bundle
+      - name: Validate bundle
         run: databricks bundle validate
 
       # 6. Deploy to DEV (automatic on develop)
