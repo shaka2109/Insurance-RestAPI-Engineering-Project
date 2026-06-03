@@ -24,11 +24,13 @@ jobs:
       - name: Validate bundle
         run: databricks bundle validate
 
-      - name: Deploy bundle
+      - name: Deploy DEV
+        if: github.ref == 'refs/heads/develop'
         run: databricks bundle deploy --target dev
 
-      - name: Summary
-        run: databricks bundle summary --target dev
+      - name: Deploy PROD
+        if: github.ref == 'refs/heads/main'
+        run: databricks bundle deploy --target prod
 
       - name: List Jobs
         run: databricks jobs list
