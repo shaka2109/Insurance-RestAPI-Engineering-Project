@@ -7,7 +7,7 @@ on:
       - develop
 
 jobs:
-  validate-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     env:
@@ -15,47 +15,14 @@ jobs:
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
     steps:
-      # 1. Checkout repo
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # 2. Setup Python
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-
-      # 3. Install Databricks CLI (DABs)
       - name: Install Databricks CLI
         run: |
           curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-      # 4. Authenticate Databricks
-      - name: Configure Databricks auth
-        run: |
-          mkdir -p ~/.databricks
-          echo "[DEFAULT]" > ~/.databricks/config
-          echo "host = $DATABRICKS_HOST" >> ~/.databricks/config
-          echo "token = $DATABRICKS_TOKEN" >> ~/.databricks/config
-        env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-
-      # 5. Validate bundle (CI step)
       - name: Validate bundle
         run: databricks bundle validate
 
-      # 6. Deploy to DEV (automatic on develop)
-      - name: Deploy to DEV
-        if: github.ref == 'refs/heads/develop'
+      - name: Deploy bundle
         run: databricks bundle deploy --target dev
-
-      # 7. Deploy to PROD (only main)
-      - name: Deploy to PROD
-        if: github.ref == 'refs/heads/main'
-        run: databricks bundle deploy --target prod
-
-      # 8. (Optional) Run pipeline after deploy
-      - name: Run Databricks Jobs (optional)
-        if: github.ref == 'refs/heads/main'
-        run: databricks bundle run Insurance-RESTAPI
